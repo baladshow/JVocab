@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">JVocab</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="first_splash_text">first splash text</string>
+    <string name="second_splash_text">second splash text</string>
+    <string name="third_splash_text">third splash text</string>
+
+</resources>
