@@ -6,14 +6,16 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import jvocab.jixa.com.jvocab.R;
 
 
-public class SplashPage extends Fragment {
-    static final int RESOURCE = R.layout.splash_page_layout;
+public class SecondSplashPageFragment extends Fragment {
+    static final int RESOURCE = R.layout.fragment_splash_page;
     TextView textView;
+    ImageView imageView;
 
 
 
@@ -26,12 +28,12 @@ public class SplashPage extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view =  inflater.inflate(RESOURCE , container ,false);
-        textView = (TextView) view.findViewById(R.id.splash_page_text);
+        view.setBackgroundColor(getResources().getColor(R.color.pink));
+//        textView = (TextView) view.findViewById(R.id.splash_page_text);
+//        imageView = (ImageView) view.findViewById(R.id.splash_page_image);
+//        textView.setText("Second Splash");
+//        imageView.setImageResource(R.drawable.master);
         return  view;
-
-    }
-
-    protected  void initialize (){
 
     }
 
