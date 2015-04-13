@@ -25,6 +25,7 @@
         android:textSize="15sp"
         android:layout_margin="20dp"
         android:gravity="center"
+        android:textColor="@android:color/white"
         />
 
 </RelativeLayout>
