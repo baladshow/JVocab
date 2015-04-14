@@ -1,17 +1,32 @@
 package jvocab.jixa.com.jvocab;
 
+import android.provider.ContactsContract;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import jvocab.jixa.com.jvocab.Cache.DatabaseManager;
+import jvocab.jixa.com.jvocab.Model.Word;
+
 
 public class MainActivity extends ActionBarActivity {
+
+    DatabaseManager dbm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if(null == dbm){
+            DatabaseManager.init(this);
+            dbm = DatabaseManager.getInstance();
+        }
+//        dbm.putWord(new Word("word1"));
+
+//        Log.d("DATABASEGET",dbm.getWords().get(0).getWord());
     }
 
 

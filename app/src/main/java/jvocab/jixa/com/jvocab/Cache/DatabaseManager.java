@@ -1,6 +1,7 @@
 package jvocab.jixa.com.jvocab.Cache;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.j256.ormlite.dao.Dao;
 
@@ -55,16 +56,18 @@ public class DatabaseManager {
 
 
     public void putWord(Word word){
+
         try {
+
             getWordDao().create(word);
         } catch (SQLException e) {
-
             e.printStackTrace();
         }
     }
 
     public List<Word>  getWords(){
         try {
+            Log.d("DATABASE","getwords");
             return getWordDao().queryForAll();
         } catch (SQLException e) {
             e.printStackTrace();
