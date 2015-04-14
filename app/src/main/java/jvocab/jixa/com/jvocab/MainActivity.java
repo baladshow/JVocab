@@ -7,15 +7,22 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import jvocab.jixa.com.jvocab.View.SplashScreenActivity;
+import jvocab.jixa.com.jvocab.Cache.DatabaseManager;
+import jvocab.jixa.com.jvocab.Model.Word;
 
 
 public class MainActivity extends ActionBarActivity {
 
+    DatabaseManager dbmanager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        startActivity(new Intent(this, SplashScreenActivity.class));
+        //startActivity(new Intent(this, SplashScreenActivity.class));
+        dbmanager = DatabaseManager.getInstance();
+        Word word = new Word("word1");
+        dbmanager.putWord(word);
+
     }
 
 
