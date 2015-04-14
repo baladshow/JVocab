@@ -1,29 +1,39 @@
 package jvocab.jixa.com.jvocab.Model;
 
+import com.j256.ormlite.dao.ForeignCollection;
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
+
+import java.util.List;
 
 public class Word {
 
     @DatabaseField (generatedId = true)
     private int id;
     @DatabaseField
-    private String word ;
-    private Word[] Synonymous = new Word[3];
+    private String word;
+
+    @DatabaseField(foreign = true,foreignAutoCreate = true)
+    private Word synonym;
+
+    @DatabaseField(foreign = true,foreignAutoCreate = true)
     private Word antonym;
+
+    @ForeignCollectionField
+    private ForeignCollection<Word> synonyms;
+
+    @ForeignCollectionField
+    private ForeignCollection<Word> antonyms;
+
+    public Word(){}
 
     public Word(String word) {
         this.word = word;
     }
-    public Word(){}
 
-    public int getSentencesCount() {
-        return sentencesCount;
+    public Word getSynonym() {
+        return synonym;
     }
-
-    public void setSentencesCount(int sentencesCount) {
-        this.sentencesCount = sentencesCount;
-    }
-
 
     public Word getAntonym() {
         return antonym;
@@ -33,13 +43,18 @@ public class Word {
         this.antonym = antonym;
     }
 
-    public Word[] getSynonymous() {
-        return Synonymous;
+    public void setSynonym(Word synonym) {
+        this.synonym = synonym;
     }
 
-    public void setSynonymous(Word[] synonymous) {
-        Synonymous = synonymous;
+    public int getSentencesCount() {
+        return sentencesCount;
     }
+
+    public void setSentencesCount(int sentencesCount) {
+        this.sentencesCount = sentencesCount;
+    }
+
 
     public String getWord() {
         return word;

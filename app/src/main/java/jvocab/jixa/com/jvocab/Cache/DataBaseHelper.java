@@ -8,10 +8,13 @@ import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.support.ConnectionSource;
 
+import java.sql.SQLException;
+
 public class DataBaseHelper extends OrmLiteSqliteOpenHelper {
     private static final String DATABASE_NAME = "JvocabDB";
     private static final int DATABASE_VERSION = 1;
     private Dao<Exam, Integer> examsDao;
+    private Dao<Word, Integer> wordDao;
     private Dao<CollectionWord, Integer> collectionDao;
 
 
@@ -28,6 +31,8 @@ public class DataBaseHelper extends OrmLiteSqliteOpenHelper {
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, ConnectionSource connectionSource, int i, int i2) {
 
     }
+
+
 }
 
 
