@@ -1,106 +1,43 @@
 package jvocab.jixa.com.jvocab.Cache;
 
 import android.content.Context;
-import android.util.Log;
 
-import com.j256.ormlite.dao.Dao;
 
+import io.realm.Realm;
+import io.realm.RealmResults;
 import jvocab.jixa.com.jvocab.Model.*;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class DatabaseManager {
-    private static DatabaseManager ourInstance;
-    private DataBaseHelper mHelper;
-    private Context mContext;
-    private Dao<Exam,Integer> examsDao;
-    private Dao<Word,Integer> wordDao;
-
-    public static void init (Context context){
-        if (ourInstance == null)
-            ourInstance = new DatabaseManager(context);
-    }
-
+    private static DatabaseManager DBMInstance;
     public static DatabaseManager getInstance() {
-        return ourInstance;
+        if (null == DBMInstance)
+            return DBMInstance = new DatabaseManager();
+        return DBMInstance;
     }
 
-    private DatabaseManager(Context context) {
-
-        mHelper = new DataBaseHelper(context);
-
+    public Word getWordById(Context context,int id){
+        Realm realm = Realm.getInstance(context);
+        return realm.where(Word.class).equalTo("id",id).findAll().get(0);
     }
 
-    private Dao<Exam, Integer> getExamsDao() {
-        if(null == examsDao)
-
-            try {
-                examsDao = mHelper.getDao(Exam.class);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        return examsDao;
+    public void putWord(Context context,Word word){
+        Realm realm = Realm.getInstance(context);
+        realm.copyToRealm(word);
+        realm.commitTransaction();
     }
 
-    private Dao<Word, Integer> getWordDao() {
-        if(null == wordDao)
-
-            try {
-                wordDao = mHelper.getDao(Word.class);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        return wordDao;
+    public RealmResults<Word>  getAllWords(Context context){
+        Realm realm = Realm.getInstance(context);
+        return realm.where(Word.class).findAll();
     }
 
-
-    public void putWord(Word word){
-
-        try {
-
-            getWordDao().create(word);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public List<Word>  getWords(){
-        try {
-            Log.d("DATABASE","getwords");
-            return getWordDao().queryForAll();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-//    public List<ReviewableWord> getWords(){
-//        List<ReviewableWord> reviewableWords = null;
-//        try {
-//             reviewableWords =  mHelper.getReWordsDao().queryForAll();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return  reviewableWords;
-//    }
-
-    public List<CollectionWord> getCollectionWords(){
-        return null;
-    }
 
     public List<Exam> getExams (){
         return null;
     }
 
-//    public void putRewWordInDb(ReviewableWord r){
-//
-//        try {
-//            mHelper.getReWordsDao().create(r);
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//    }
 
     public void dropTableReWords(){
 

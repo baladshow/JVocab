@@ -4,16 +4,19 @@ import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
-public class Exam extends RealmObject {
+
+public class Group extends RealmObject{
 
     @PrimaryKey
     private int id;
 
     private String name;
 
-    private String description;
+    private int extra;
 
-    private RealmList<Group> groups;
+    private RealmList<Word> words;
+
+    public Group(){}
 
     public int getId() {
         return id;
@@ -31,19 +34,19 @@ public class Exam extends RealmObject {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    public int getExtra() {
+        return extra;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setExtra(int extra) {
+        this.extra = extra;
     }
 
-    public RealmList<Group> getGroups() {
-        return groups;
+    public RealmList<Word> getWords() {
+        return words;
     }
 
-    public void setGroups(RealmList<Group> groups) {
-        this.groups = groups;
+    public void setWords(RealmList<Word> words) {
+        this.words = words;
     }
 }

@@ -1,12 +1,14 @@
 package jvocab.jixa.com.jvocab;
 
-import android.provider.ContactsContract;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import io.realm.Realm;
+import io.realm.RealmQuery;
+import io.realm.RealmResults;
 import jvocab.jixa.com.jvocab.Cache.DatabaseManager;
 import jvocab.jixa.com.jvocab.Model.Word;
 
@@ -21,12 +23,17 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         if(null == dbm){
-            DatabaseManager.init(this);
             dbm = DatabaseManager.getInstance();
         }
-//        dbm.putWord(new Word("word1"));
-
-//        Log.d("DATABASEGET",dbm.getWords().get(0).getWord());
+//        Realm realm = Realm.getInstance(this);
+//        realm.beginTransaction();
+//        Word word = realm.createObject(Word.class);
+//        word.setText("first");
+//        realm.commitTransaction();
+//        RealmQuery<Word> query = realm.where(Word.class);
+//        RealmResults<Word> results = query.findAll();
+//        Log.d("DATABASEGET--MAIN", results.toString());
+//        Log.d("DATABASEGET", String.valueOf(dbm.getWordById(1).getSynonyms()));
     }
 
 

@@ -1,71 +1,97 @@
 package jvocab.jixa.com.jvocab.Model;
 
-import com.j256.ormlite.dao.ForeignCollection;
-import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.field.ForeignCollectionField;
+import io.realm.RealmList;
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
-import java.util.List;
+public class Word extends RealmObject {
 
-public class Word {
-
-    @DatabaseField (generatedId = true)
+    @PrimaryKey
     private int id;
-    @DatabaseField
-    private String word;
 
-    @DatabaseField(foreign = true,foreignAutoCreate = true)
-    private Word synonym;
+    private String text;
 
-    @DatabaseField(foreign = true,foreignAutoCreate = true)
-    private Word antonym;
+    private RealmList<Word> synonyms;
 
-    @ForeignCollectionField
-    private ForeignCollection<Word> synonyms;
+    private RealmList<Word> antonyms;
 
-    @ForeignCollectionField
-    private ForeignCollection<Word> antonyms;
+    private RealmList<Sentence> sentences;
 
-    public Word(){}
+    private String image;
+
+    private int level;
+
+    private boolean isFavorite;
+
+    public Word() {
+    }
 
     public Word(String word) {
-        this.word = word;
+        this.text = word;
     }
 
-    public Word getSynonym() {
-        return synonym;
+    public int getId() {
+        return id;
     }
 
-    public Word getAntonym() {
-        return antonym;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public void setAntonym(Word antonym) {
-        this.antonym = antonym;
+    public String getText() {
+        return text;
     }
 
-    public void setSynonym(Word synonym) {
-        this.synonym = synonym;
+    public void setText(String text) {
+        this.text = text;
     }
 
-    public int getSentencesCount() {
-        return sentencesCount;
+    public RealmList<Word> getSynonyms() {
+        return synonyms;
     }
 
-    public void setSentencesCount(int sentencesCount) {
-        this.sentencesCount = sentencesCount;
+    public void setSynonyms(RealmList<Word> synonyms) {
+        this.synonyms = synonyms;
+    }
+
+    public RealmList<Word> getAntonyms() {
+        return antonyms;
+    }
+
+    public void setAntonyms(RealmList<Word> antonyms) {
+        this.antonyms = antonyms;
+    }
+
+    public RealmList<Sentence> getSentences() {
+        return sentences;
+    }
+
+    public void setSentences(RealmList<Sentence> sentences) {
+        this.sentences = sentences;
     }
 
 
-    public String getWord() {
-        return word;
+    public String getImage() {
+        return image;
     }
 
-    public void setWord(String word) {
-        this.word = word;
+    public void setImage(String image) {
+        this.image = image;
     }
 
-    private int sentencesCount;
+    public boolean isFavorite() {
+        return isFavorite;
+    }
 
+    public void setFavorite(boolean isFavorite) {
+        this.isFavorite = isFavorite;
+    }
 
+    public int getLevel() {
+        return level;
+    }
 
+    public void setLevel(int level) {
+        this.level = level;
+    }
 }
