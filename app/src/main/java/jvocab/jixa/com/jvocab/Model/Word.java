@@ -70,7 +70,6 @@ public class Word extends RealmObject {
         this.sentences = sentences;
     }
 
-
     public String getImage() {
         return image;
     }

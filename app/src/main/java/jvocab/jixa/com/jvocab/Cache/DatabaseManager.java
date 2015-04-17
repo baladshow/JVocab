@@ -4,9 +4,12 @@ import android.content.Context;
 
 
 import io.realm.Realm;
+import io.realm.RealmList;
 import io.realm.RealmResults;
 import jvocab.jixa.com.jvocab.Model.*;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class DatabaseManager {
@@ -31,6 +34,19 @@ public class DatabaseManager {
     public RealmResults<Word>  getAllWords(Context context){
         Realm realm = Realm.getInstance(context);
         return realm.where(Word.class).findAll();
+    }
+
+    public RealmList<ReviewableWord> wordToReviewableWord(Context context,List<Word> words,Date firstReview){
+        Realm realm = Realm.getInstance(context);
+        RealmList<ReviewableWord> reviewableWords = new RealmList<>();
+        int days = 0;
+        for (Word word : words){
+            ReviewableWord reviewableWord = new ReviewableWord(word,
+                    new Date(firstReview.getTime() + days++ * 24 * 60 * 60 * 1000));
+            reviewableWords.add(realm.copyToRealm(reviewableWord));
+        }
+        realm.commitTransaction();
+        return reviewableWords;
     }
 
 

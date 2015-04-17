@@ -23,7 +23,5 @@ public class App  extends Application{
     @Override
     public void onCreate() {
         super.onCreate();
-        DatabaseManager.init(getApplicationContext());
-        Log.d("***************" , "create DBMANAGER");
     }
 }
