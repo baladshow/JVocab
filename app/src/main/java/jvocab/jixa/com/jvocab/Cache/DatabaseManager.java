@@ -2,6 +2,7 @@ package jvocab.jixa.com.jvocab.Cache;
 
 import android.content.Context;
 
+<<<<<<< HEAD
 import com.j256.ormlite.dao.Dao;
 
 import jvocab.jixa.com.jvocab.Model.*;
@@ -21,16 +22,29 @@ public class DatabaseManager {
             ourInstance = new DatabaseManager(context);
     }
 
+=======
+
+import io.realm.Realm;
+import io.realm.RealmResults;
+import jvocab.jixa.com.jvocab.Model.*;
+
+import java.util.List;
+
+public class DatabaseManager {
+    private static DatabaseManager DBMInstance;
+>>>>>>> Database
     public static DatabaseManager getInstance() {
-        return ourInstance;
+        if (null == DBMInstance)
+            return DBMInstance = new DatabaseManager();
+        return DBMInstance;
     }
 
-    private DatabaseManager(Context context) {
-
-        mHelper = new DataBaseHelper(context);
-
+    public Word getWordById(Context context,int id){
+        Realm realm = Realm.getInstance(context);
+        return realm.where(Word.class).equalTo("id",id).findAll().get(0);
     }
 
+<<<<<<< HEAD
     private Dao<Exam, Integer> getExamsDao() {
         if(null == examsDao)
 
@@ -70,34 +84,24 @@ public class DatabaseManager {
             e.printStackTrace();
         }
         return null;
+=======
+    public void putWord(Context context,Word word){
+        Realm realm = Realm.getInstance(context);
+        realm.copyToRealm(word);
+        realm.commitTransaction();
+>>>>>>> Database
     }
 
-//    public List<ReviewableWord> getWords(){
-//        List<ReviewableWord> reviewableWords = null;
-//        try {
-//             reviewableWords =  mHelper.getReWordsDao().queryForAll();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return  reviewableWords;
-//    }
-
-    public List<CollectionWord> getCollectionWords(){
-        return null;
+    public RealmResults<Word>  getAllWords(Context context){
+        Realm realm = Realm.getInstance(context);
+        return realm.where(Word.class).findAll();
     }
+
 
     public List<Exam> getExams (){
         return null;
     }
 
-//    public void putRewWordInDb(ReviewableWord r){
-//
-//        try {
-//            mHelper.getReWordsDao().create(r);
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//    }
 
     public void dropTableReWords(){
 
