@@ -36,13 +36,12 @@ public class DatabaseManager {
         return realm.where(Word.class).findAll();
     }
 
-    public RealmList<ReviewableWord> wordToReviewableWord(Context context,List<Word> words,Date firstReview){
+    public RealmList<ReviewableWord> wordToReviewableWord(Context context,List<Word> words){
         Realm realm = Realm.getInstance(context);
         RealmList<ReviewableWord> reviewableWords = new RealmList<>();
         int days = 0;
         for (Word word : words){
-            ReviewableWord reviewableWord = new ReviewableWord(word,
-                    new Date(firstReview.getTime() + days++ * 24 * 60 * 60 * 1000));
+            ReviewableWord reviewableWord = new ReviewableWord(word);
             reviewableWords.add(realm.copyToRealm(reviewableWord));
         }
         realm.commitTransaction();
