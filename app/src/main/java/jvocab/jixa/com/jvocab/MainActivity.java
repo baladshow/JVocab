@@ -7,36 +7,21 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-<<<<<<< HEAD
-import jvocab.jixa.com.jvocab.View.SplashScreenActivity;
-=======
 import io.realm.Realm;
 import io.realm.RealmQuery;
 import io.realm.RealmResults;
->>>>>>> Database
 import jvocab.jixa.com.jvocab.Cache.DatabaseManager;
 import jvocab.jixa.com.jvocab.Model.Word;
 
 
 public class MainActivity extends ActionBarActivity {
 
-<<<<<<< HEAD
-    DatabaseManager dbmanager;
-=======
     DatabaseManager dbm;
 
->>>>>>> Database
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-<<<<<<< HEAD
-        //startActivity(new Intent(this, SplashScreenActivity.class));
-        dbmanager = DatabaseManager.getInstance();
-        Word word = new Word("word1");
-        dbmanager.putWord(word);
-
-=======
 
         if(null == dbm){
             dbm = DatabaseManager.getInstance();
@@ -50,7 +35,6 @@ public class MainActivity extends ActionBarActivity {
 //        RealmResults<Word> results = query.findAll();
 //        Log.d("DATABASEGET--MAIN", results.toString());
 //        Log.d("DATABASEGET", String.valueOf(dbm.getWordById(1).getSynonyms()));
->>>>>>> Database
     }
 
 
