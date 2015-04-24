@@ -22,7 +22,10 @@ public class App  extends Application{
     @Override
     public void onCreate() {
         super.onCreate();
+<<<<<<< HEAD
 
         Log.d("***************" , "create DBMANAGER");
+=======
+>>>>>>> Database
     }
 }
