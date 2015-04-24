@@ -3,6 +3,7 @@ package jvocab.jixa.com.jvocab.Model;
 import java.util.Date;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
+import jvocab.jixa.com.jvocab.R;
 
 public class ReviewableWord extends RealmObject{
 
@@ -16,6 +17,8 @@ public class ReviewableWord extends RealmObject{
 //    private Date nextReview;
     private long nextReview;
 
+    private short stage;
+
     public ReviewableWord (){}
 
     private boolean reviewComplete;
@@ -25,6 +28,7 @@ public class ReviewableWord extends RealmObject{
         this.setNextReview(nextReview);
         this.setNumCorrectReview(0);
         this.reviewComplete = true;
+        this.stage = 0;
     }
 
 
@@ -67,4 +71,19 @@ public class ReviewableWord extends RealmObject{
     public void setReviewComplete(boolean reviewComplete) {
         this.reviewComplete = reviewComplete;
     }
+
+    public short getStage() {
+        return stage;
+    }
+
+    public void setStage(short stage) {
+        this.stage = stage;
+    }
+
+    public void plusNumCorrects(){ this.setNumCorrectReview(++this.numCorrectReview);  }
+
+    public void correctAnswer(){
+        this.setNumCorrectReview(this.getNumCorrectReview() + 1);
+    }
+
 }

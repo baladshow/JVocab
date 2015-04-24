@@ -45,7 +45,6 @@ public class Course extends RealmObject {
         long today = new Date().getTime();
         int days = 0;
         for (ReviewableWord rWord : reviweableWords) {
-//            rWord.setNextReview(new Date(today + (24*60*60*1000)*((days++)%NUM_WORD_PER_DAY)));
             rWord.setNextReview(today + (24 * 60 * 60 * 1000) * ((days++) % NUM_WORD_PER_DAY));
         }
     }
@@ -56,23 +55,25 @@ public class Course extends RealmObject {
         int numWords = 0;
 //        Calendar calendar = Calendar.getInstance();
         for (ReviewableWord rWord : reviweableWords) {
-            if (Math.abs(rWord.getNextReview() - today) < 24 * 60 * 60 * 1000) {
-                if (numWords++ > this.NUM_WORD_LIMIT_PER_DAY) {
-                    return todayWords;
-                }
-                todayWords.add(rWord);
+            if (numWords++ > this.NUM_WORD_LIMIT_PER_DAY) {
+                return todayWords;
 
             }
+            if (Math.abs(rWord.getNextReview() - today) < 24 * 60 * 60 * 1000) {
+                todayWords.add(rWord);
+                rWord.setNextReview((rWord.getStage() + 1) * 24 * 60 * 60 * 1000);
+            }
+
         }
         for (ReviewableWord rWord : needMoreReview) {
             if (numWords++ > this.NUM_WORD_LIMIT_PER_DAY) {
                 return todayWords;
             }
             todayWords.add(rWord);
-
         }
         return todayWords;
     }
+
 
     public int getId() {
         return id;
@@ -117,4 +118,15 @@ public class Course extends RealmObject {
     public void setNeedMoreReview(RealmList<ReviewableWord> needMoreReview) {
         this.needMoreReview = needMoreReview;
     }
+
+    public void setWordCorrectAnwer(ReviewableWord word) {
+        word.correctAnswer();
+    }
+
+    public void setWordWorngAnswer(ReviewableWord word) {
+        RealmList<ReviewableWord> list = this.getNeedMoreReview();
+        list.add(word);
+        this.setReviweableWords(list);
+    }
+
 }

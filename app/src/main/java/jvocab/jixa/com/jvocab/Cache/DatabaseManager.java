@@ -39,7 +39,6 @@ public class DatabaseManager {
     public RealmList<ReviewableWord> wordToReviewableWord(Context context,List<Word> words){
         Realm realm = Realm.getInstance(context);
         RealmList<ReviewableWord> reviewableWords = new RealmList<>();
-        int days = 0;
         for (Word word : words){
             ReviewableWord reviewableWord = new ReviewableWord(word);
             reviewableWords.add(realm.copyToRealm(reviewableWord));
@@ -49,12 +48,10 @@ public class DatabaseManager {
     }
 
 
-    public List<Exam> getExams (){
-        return null;
+    public RealmResults<Exam> getExams (Context context){
+        Realm realm = Realm.getInstance(context);
+        return realm.where(Exam.class).findAll();
     }
 
 
-    public void dropTableReWords(){
-
-    }
 }
