@@ -22,7 +22,5 @@ public class ExamManager extends  AbstractManager<Exam> {
     }
 
     @Override
-    public void Store() {
-
-    }
+    public void Store() {   }
 }

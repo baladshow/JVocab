@@ -8,8 +8,6 @@ import io.realm.RealmList;
 import io.realm.RealmResults;
 import jvocab.jixa.com.jvocab.Model.*;
 
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 public class DatabaseManager {
@@ -47,11 +45,21 @@ public class DatabaseManager {
         return reviewableWords;
     }
 
-
-    public RealmResults<Exam> getExams (Context context){
+    public RealmResults<Exam> getAllExams(Context context){
         Realm realm = Realm.getInstance(context);
         return realm.where(Exam.class).findAll();
     }
+
+    public RealmResults<Collection> getAllCollections(Context context){
+        Realm realm = Realm.getInstance(context);
+        return realm.where(Collection.class).findAll();
+    }
+
+    public RealmResults<Course> getAllCourses(Context context){
+        Realm realm = Realm.getInstance(context);
+        return realm.where(Course.class).findAll();
+    }
+
 
 
 }

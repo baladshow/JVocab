@@ -1,20 +1,21 @@
 package jvocab.jixa.com.jvocab.Model;
 
 import io.realm.RealmList;
+import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
-public class Course {
+public class Course extends RealmObject{
 
     @PrimaryKey
     private int  id;
 
     private String name;
 
-    private int numCorrectRequired;
+    private int numStageRequired;
 
     private int numNewWordPerDay ;
 
-    private int numWordLimitPerDay;
+    private String CourseType;
 
     private RealmList<ReviewableWord> reviewableWords;
 
@@ -24,14 +25,12 @@ public class Course {
 
     public Course(int numNewWordPerDay, int numWordLimitPerDay){
         this.numNewWordPerDay = numNewWordPerDay;
-        this.numWordLimitPerDay = numWordLimitPerDay;
-        this.numCorrectRequired = 5;
+        this.numStageRequired = 5;
     }
 
-    public Course(int numNewWordPerDay, int numWordLimitPerDay, int numCorrectRequired){
+    public Course(int numNewWordPerDay, int numWordLimitPerDay, int numStageRequired){
         this.numNewWordPerDay = numNewWordPerDay;
-        this.numWordLimitPerDay = numWordLimitPerDay;
-        this.numCorrectRequired = numCorrectRequired;
+        this.numStageRequired = numStageRequired;
     }
 
 
@@ -51,12 +50,12 @@ public class Course {
         this.name = name;
     }
 
-    public int getNumCorrectRequired() {
-        return numCorrectRequired;
+    public int getNumStageRequired() {
+        return numStageRequired;
     }
 
-    public void setNumCorrectRequired(int numCorrectRequired) {
-        this.numCorrectRequired = numCorrectRequired;
+    public void setNumStageRequired(int numStageRequired) {
+        this.numStageRequired = numStageRequired;
     }
 
     public int getNumNewWordPerDay() {
@@ -65,14 +64,6 @@ public class Course {
 
     public void setNumNewWordPerDay(int numNewWordPerDay) {
         this.numNewWordPerDay = numNewWordPerDay;
-    }
-
-    public int getNumWordLimitPerDay() {
-        return numWordLimitPerDay;
-    }
-
-    public void setNumWordLimitPerDay(int numWordLimitPerDay) {
-        this.numWordLimitPerDay = numWordLimitPerDay;
     }
 
     public RealmList<ReviewableWord> getReviewableWords() {
@@ -89,5 +80,13 @@ public class Course {
 
     public void setNeedMoreReview(RealmList<ReviewableWord> needMoreReview) {
         this.needMoreReview = needMoreReview;
+    }
+
+    public String getCourseType() {
+        return CourseType;
+    }
+
+    public void setCourseType(String courseType) {
+        CourseType = courseType;
     }
 }
