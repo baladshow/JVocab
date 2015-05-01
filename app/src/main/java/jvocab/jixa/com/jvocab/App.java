@@ -1,4 +1,4 @@
-package jvocab.jixa.com.jvocab.Model;
+package jvocab.jixa.com.jvocab;
 
 import android.app.Application;
 

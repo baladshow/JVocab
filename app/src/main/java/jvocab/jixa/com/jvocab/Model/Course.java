@@ -13,7 +13,7 @@ public class Course extends RealmObject{
 
     private int numStageRequired;
 
-    private int numNewWordPerDay ;
+    private int numNewWordPerDay;
 
     private String CourseType;
 

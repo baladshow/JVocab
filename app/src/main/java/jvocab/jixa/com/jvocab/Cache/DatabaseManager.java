@@ -25,6 +25,7 @@ public class DatabaseManager {
 
     public void putWord(Context context,Word word){
         Realm realm = Realm.getInstance(context);
+        realm.beginTransaction();
         realm.copyToRealm(word);
         realm.commitTransaction();
     }
@@ -37,6 +38,7 @@ public class DatabaseManager {
     public RealmList<ReviewableWord> wordToReviewableWord(Context context,List<Word> words){
         Realm realm = Realm.getInstance(context);
         RealmList<ReviewableWord> reviewableWords = new RealmList<>();
+        realm.beginTransaction();
         for (Word word : words){
             ReviewableWord reviewableWord = new ReviewableWord(word);
             reviewableWords.add(realm.copyToRealm(reviewableWord));
@@ -59,6 +61,23 @@ public class DatabaseManager {
         Realm realm = Realm.getInstance(context);
         return realm.where(Course.class).findAll();
     }
+
+    public Course createCourse(Context context, List<Word> wordList,
+                               String courseType, String name, int numNewWordPerDay,
+                               int numStageRequired
+    ) {
+        Realm realm = Realm.getInstance(context);
+        realm.beginTransaction();
+        Course course = realm.createObject(Course.class);
+        course.setCourseType(courseType);
+        course.setName(name);
+        course.setNumNewWordPerDay(numNewWordPerDay);
+        course.setNumStageRequired(numStageRequired);
+        realm.commitTransaction();
+        return course;
+    }
+
+
 
 
 

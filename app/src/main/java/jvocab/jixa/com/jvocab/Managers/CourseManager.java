@@ -7,15 +7,19 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import io.realm.Realm;
 import jvocab.jixa.com.jvocab.Cache.DatabaseManager;
 import jvocab.jixa.com.jvocab.Model.Course;
 import jvocab.jixa.com.jvocab.Model.ReviewableWord;
+import jvocab.jixa.com.jvocab.Model.Word;
 
 public class CourseManager extends AbstractManager<Course> {
 
     private final static String LEITNER_COURSE = "LEITNER_COURSE";
     private final static String CUSTOM_COURSE = "CUSTOM_COURSE";
-    private final static int NUM_WORD_LIMIT_EACH_TIME = 30;
+    private final static int MAX_WORD_EACH_TIME = 30;
+    private final static int MAX_NEW_WORD_PER_DAY = 20;
+
     private static CourseManager CMInstance;
     private DatabaseManager dbm;
 
@@ -24,6 +28,13 @@ public class CourseManager extends AbstractManager<Course> {
             return CMInstance;
         }
         return CMInstance = new CourseManager();
+    }
+
+    public Course createCourse(Context context, List<Word> wordList,
+                               String courseType, String name, int numNewWordPerDay,
+                               int numStageRequired
+    ) {
+        return dbm.createCourse(context,wordList,courseType,name,numNewWordPerDay,numStageRequired);
     }
 
     public List<Course> getAllCourse(Context context) {
@@ -43,9 +54,9 @@ public class CourseManager extends AbstractManager<Course> {
         List<ReviewableWord> todayWords = new ArrayList<>();
         long today = new Date().getTime();
         int numWords = 0;
-        for(Course course: getAllCourse(context)) {
+        for (Course course : getAllCourse(context)) {
             for (ReviewableWord rWord : course.getReviewableWords()) {
-                if (numWords++ > NUM_WORD_LIMIT_EACH_TIME) {
+                if (numWords++ > MAX_WORD_EACH_TIME) {
                     return todayWords;
                 }
                 if (Math.abs(rWord.getNextReview() - today) < 24 * 60 * 60 * 1000) {
@@ -60,7 +71,7 @@ public class CourseManager extends AbstractManager<Course> {
             }
             if (course.getCourseType().equals(CUSTOM_COURSE)) {
                 for (int i = 0; i < course.getNeedMoreReview().size(); i++) {
-                    if (numWords++ > NUM_WORD_LIMIT_EACH_TIME) {
+                    if (numWords++ > MAX_WORD_EACH_TIME) {
                         return todayWords;
                     }
                     todayWords.add(course.getNeedMoreReview().remove(i));
@@ -70,18 +81,26 @@ public class CourseManager extends AbstractManager<Course> {
         return todayWords;
     }
 
-    public void setWordWrongAnswer(ReviewableWord word,Course course){
-        if(course.getCourseType().equals(LEITNER_COURSE)){
+    public void setWordWrongAnswer(ReviewableWord word, Course course) {
+        if (course.getCourseType().equals(LEITNER_COURSE)) {
             word.setStage(0);
-        }
-        else if (course.getCourseType().equals(CUSTOM_COURSE)){
+        } else if (course.getCourseType().equals(CUSTOM_COURSE)) {
             course.getNeedMoreReview().add(word);
         }
 
     }
 
-    public void setWordCorrectAnswer(ReviewableWord word){
-        word.setStage(word.getStage() +1);
+    public void setWordCorrectAnswer(ReviewableWord word) {
+        word.setStage(word.getStage() + 1);
+    }
+
+    public int CalculateNewWordPerDay(int numWords, int numDays) {
+        if (numWords / (numDays - 15) <= MAX_NEW_WORD_PER_DAY) {
+            return numWords / (numDays - 15);
+        } else if (numWords / (numDays - 6) <= MAX_NEW_WORD_PER_DAY) {
+            return numWords / (numDays - 6);
+        }
+        return -1;
     }
 
     @Override
