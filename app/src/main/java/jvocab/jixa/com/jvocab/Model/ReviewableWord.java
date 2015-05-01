@@ -12,22 +12,15 @@ public class ReviewableWord extends RealmObject{
 
     private Word word;
 
-    private int numCorrectReview;
-
-//    private Date nextReview;
     private long nextReview;
 
-    private short stage;
+    private int stage;
 
     public ReviewableWord (){}
-
-    private boolean reviewComplete;
 
     public ReviewableWord(Word word){
         this.setWord(word);
         this.setNextReview(nextReview);
-        this.setNumCorrectReview(0);
-        this.reviewComplete = true;
         this.stage = 0;
     }
 
@@ -48,14 +41,6 @@ public class ReviewableWord extends RealmObject{
         this.word = word;
     }
 
-    public int getNumCorrectReview() {
-        return numCorrectReview;
-    }
-
-    public void setNumCorrectReview(int numCorrectReview) {
-        this.numCorrectReview = numCorrectReview;
-    }
-
     public long getNextReview() {
         return nextReview;
     }
@@ -64,26 +49,12 @@ public class ReviewableWord extends RealmObject{
         this.nextReview = nextReview;
     }
 
-    public boolean isReviewComplete() {
-        return reviewComplete;
-    }
-
-    public void setReviewComplete(boolean reviewComplete) {
-        this.reviewComplete = reviewComplete;
-    }
-
-    public short getStage() {
+    public int getStage() {
         return stage;
     }
 
-    public void setStage(short stage) {
+    public void setStage(int stage) {
         this.stage = stage;
-    }
-
-    public void plusNumCorrects(){ this.setNumCorrectReview(++this.numCorrectReview);  }
-
-    public void correctAnswer(){
-        this.setNumCorrectReview(this.getNumCorrectReview() + 1);
     }
 
 }

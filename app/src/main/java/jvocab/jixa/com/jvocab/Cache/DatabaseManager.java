@@ -8,8 +8,6 @@ import io.realm.RealmList;
 import io.realm.RealmResults;
 import jvocab.jixa.com.jvocab.Model.*;
 
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 public class DatabaseManager {
@@ -27,6 +25,7 @@ public class DatabaseManager {
 
     public void putWord(Context context,Word word){
         Realm realm = Realm.getInstance(context);
+        realm.beginTransaction();
         realm.copyToRealm(word);
         realm.commitTransaction();
     }
@@ -39,6 +38,7 @@ public class DatabaseManager {
     public RealmList<ReviewableWord> wordToReviewableWord(Context context,List<Word> words){
         Realm realm = Realm.getInstance(context);
         RealmList<ReviewableWord> reviewableWords = new RealmList<>();
+        realm.beginTransaction();
         for (Word word : words){
             ReviewableWord reviewableWord = new ReviewableWord(word);
             reviewableWords.add(realm.copyToRealm(reviewableWord));
@@ -47,11 +47,38 @@ public class DatabaseManager {
         return reviewableWords;
     }
 
-
-    public RealmResults<Exam> getExams (Context context){
+    public RealmResults<Exam> getAllExams(Context context){
         Realm realm = Realm.getInstance(context);
         return realm.where(Exam.class).findAll();
     }
+
+    public RealmResults<Collection> getAllCollections(Context context){
+        Realm realm = Realm.getInstance(context);
+        return realm.where(Collection.class).findAll();
+    }
+
+    public RealmResults<Course> getAllCourses(Context context){
+        Realm realm = Realm.getInstance(context);
+        return realm.where(Course.class).findAll();
+    }
+
+    public Course createCourse(Context context, List<Word> wordList,
+                               String courseType, String name, int numNewWordPerDay,
+                               int numStageRequired
+    ) {
+        Realm realm = Realm.getInstance(context);
+        realm.beginTransaction();
+        Course course = realm.createObject(Course.class);
+        course.setCourseType(courseType);
+        course.setName(name);
+        course.setNumNewWordPerDay(numNewWordPerDay);
+        course.setNumStageRequired(numStageRequired);
+        realm.commitTransaction();
+        return course;
+    }
+
+
+
 
 
 }

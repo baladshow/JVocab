@@ -13,7 +13,7 @@ public class Exam extends RealmObject {
 
     private String description;
 
-    private RealmList<Group> groups;
+    private RealmList<Collection> collections;
 
     public int getId() {
         return id;
@@ -39,11 +39,11 @@ public class Exam extends RealmObject {
         this.description = description;
     }
 
-    public RealmList<Group> getGroups() {
-        return groups;
+    public RealmList<Collection> getCollections() {
+        return collections;
     }
 
-    public void setGroups(RealmList<Group> groups) {
-        this.groups = groups;
+    public void setCollections(RealmList<Collection> collections) {
+        this.collections = collections;
     }
 }
