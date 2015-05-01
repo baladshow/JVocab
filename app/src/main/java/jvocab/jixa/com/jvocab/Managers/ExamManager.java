@@ -4,17 +4,16 @@ package jvocab.jixa.com.jvocab.Managers;
 import jvocab.jixa.com.jvocab.Model.Exam;
 import java.util.List;
 
-public class ExamsManager extends  AbstractManager<Exam> {
+public class ExamManager extends  AbstractManager<Exam> {
 
 
-    private static ExamsManager ourInstance = new ExamsManager();
+    private static ExamManager EMInstance = new ExamManager();
 
-    public static ExamsManager getInstance() {
-        return ourInstance;
+    public static ExamManager getInstance() {
+        return EMInstance;
     }
 
-    private ExamsManager() {
-    }
+    private ExamManager() {   }
 
 
     @Override

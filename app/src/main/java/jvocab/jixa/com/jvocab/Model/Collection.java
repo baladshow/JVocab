@@ -5,7 +5,7 @@ import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
 
-public class Group extends RealmObject{
+public class Collection extends RealmObject{
 
     @PrimaryKey
     private int id;
@@ -16,7 +16,7 @@ public class Group extends RealmObject{
 
     private RealmList<Word> words;
 
-    public Group(){}
+    public Collection(){}
 
     public int getId() {
         return id;
