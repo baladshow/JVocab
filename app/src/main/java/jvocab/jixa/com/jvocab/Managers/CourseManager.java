@@ -34,6 +34,7 @@ public class CourseManager extends AbstractManager<Course> {
                                String courseType, String name, int numNewWordPerDay,
                                int numStageRequired
     ) {
+        dbm = DatabaseManager.getInstance();
         return dbm.createCourse(context,wordList,courseType,name,numNewWordPerDay,numStageRequired);
     }
 
@@ -61,37 +62,54 @@ public class CourseManager extends AbstractManager<Course> {
                 }
                 if (Math.abs(rWord.getNextReview() - today) < 24 * 60 * 60 * 1000) {
                     todayWords.add(rWord);
-                    if (course.getCourseType().equals(LEITNER_COURSE))
-                        rWord.setNextReview((int) (Math.pow(2, rWord.getStage())) * 24 * 60 * 60 * 1000);
-                    else if (course.getCourseType().equals(CUSTOM_COURSE))
-                        rWord.setNextReview((rWord.getStage() + 1) * 24 * 60 * 60 * 1000);
-                    rWord.setStage(rWord.getStage() + 1);
                 }
 
             }
             if (course.getCourseType().equals(CUSTOM_COURSE)) {
-                for (int i = 0; i < course.getNeedMoreReview().size(); i++) {
+                for (ReviewableWord rWord : course.getNeedMoreReview()) {
                     if (numWords++ > MAX_WORD_EACH_TIME) {
                         return todayWords;
                     }
-                    todayWords.add(course.getNeedMoreReview().remove(i));
+                    todayWords.add(rWord);
                 }
             }
         }
         return todayWords;
     }
 
-    public void setWordWrongAnswer(ReviewableWord word, Course course) {
-        if (course.getCourseType().equals(LEITNER_COURSE)) {
-            word.setStage(0);
-        } else if (course.getCourseType().equals(CUSTOM_COURSE)) {
-            course.getNeedMoreReview().add(word);
+    public void setWordWrongAnswer(Context context,List<ReviewableWord> words, Course course) {
+        long today = new Date().getTime();
+        Realm realm = Realm.getInstance(context);
+        realm.beginTransaction();
+        for (ReviewableWord rWord : words) {
+            if (course.getCourseType().equals(LEITNER_COURSE)) {
+                rWord.setStage(0);
+                rWord.setNextReview(today + 24 * 60 * 60 * 1000);
+            } else if (course.getCourseType().equals(CUSTOM_COURSE)) {
+                course.getNeedMoreReview().add(rWord);
+            }
         }
+        realm.commitTransaction();
 
     }
 
-    public void setWordCorrectAnswer(ReviewableWord word) {
-        word.setStage(word.getStage() + 1);
+    public void setWordCorrectAnswer(Context context,List<ReviewableWord> words,Course course) {
+        long today = new Date().getTime();
+        Realm realm = Realm.getInstance(context);
+        realm.beginTransaction();
+        for ( ReviewableWord rWord : words) {
+            if(course.getCourseType().equals(LEITNER_COURSE)) {
+                rWord.setNextReview((int) (Math.pow(2, rWord.getStage())) * 24 * 60 * 60 * 1000);
+            }else if(course.getCourseType().equals(CUSTOM_COURSE)) {
+                if (Math.abs(rWord.getNextReview() - today) < 24 * 60 * 60 * 1000){
+                    rWord.setNextReview((rWord.getStage() + 1) * 24 * 60 * 60 * 1000);
+                }else{
+                    course.getNeedMoreReview().remove(course.getNeedMoreReview().indexOf(rWord));
+                }
+            }
+            rWord.setStage(rWord.getStage() + 1);
+        }
+        realm.commitTransaction();
     }
 
     public int CalculateNewWordPerDay(int numWords, int numDays) {
