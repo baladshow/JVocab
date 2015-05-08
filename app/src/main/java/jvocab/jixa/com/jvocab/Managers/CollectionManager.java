@@ -7,7 +7,6 @@ import jvocab.jixa.com.jvocab.Model.Collection;
 
 public class CollectionManager extends  AbstractManager<Collection> {
 
-
     @Override
     public List<Collection> Load() {
         return null;

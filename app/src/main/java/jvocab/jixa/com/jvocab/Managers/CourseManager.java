@@ -43,12 +43,15 @@ public class CourseManager extends AbstractManager<Course> {
         return dbm.getAllCourses(context);
     }
 
-    public void startCourse(Course course) {
+    public void startCourse(Context context,Course course) {
+        Realm realm = Realm.getInstance(context);
         long today = new Date().getTime();
         int days = 0;
+        realm.beginTransaction();
         for (ReviewableWord rWord : course.getReviewableWords()) {
             rWord.setNextReview(today + (24 * 60 * 60 * 1000) * ((days++) % course.getNumNewWordPerDay()));
         }
+        realm.commitTransaction();
     }
 
     private List<ReviewableWord> getTodayWords(Context context) {
@@ -60,7 +63,7 @@ public class CourseManager extends AbstractManager<Course> {
                 if (numWords++ > MAX_WORD_EACH_TIME) {
                     return todayWords;
                 }
-                if (Math.abs(rWord.getNextReview() - today) < 24 * 60 * 60 * 1000) {
+                if (today > rWord.getNextReview() || rWord.getNextReview() - today < 24 * 60 * 60 * 1000) {
                     todayWords.add(rWord);
                 }
 
@@ -101,7 +104,7 @@ public class CourseManager extends AbstractManager<Course> {
             if(course.getCourseType().equals(LEITNER_COURSE)) {
                 rWord.setNextReview((int) (Math.pow(2, rWord.getStage())) * 24 * 60 * 60 * 1000);
             }else if(course.getCourseType().equals(CUSTOM_COURSE)) {
-                if (Math.abs(rWord.getNextReview() - today) < 24 * 60 * 60 * 1000){
+                if (today > rWord.getNextReview() || rWord.getNextReview() - today < 24 * 60 * 60 * 1000){
                     rWord.setNextReview((rWord.getStage() + 1) * 24 * 60 * 60 * 1000);
                 }else{
                     course.getNeedMoreReview().remove(course.getNeedMoreReview().indexOf(rWord));
