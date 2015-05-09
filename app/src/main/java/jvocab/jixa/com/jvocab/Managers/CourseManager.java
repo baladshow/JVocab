@@ -15,8 +15,8 @@ import jvocab.jixa.com.jvocab.Model.Word;
 
 public class CourseManager extends AbstractManager<Course> {
 
-    private final static String LEITNER_COURSE = "LEITNER_COURSE";
-    private final static String CUSTOM_COURSE = "CUSTOM_COURSE";
+    private final static int LEITNER_COURSE = 0;
+    private final static int CUSTOM_COURSE = 1;
     private final static int MAX_WORD_EACH_TIME = 30;
     private final static int MAX_NEW_WORD_PER_DAY = 20;
 
@@ -61,15 +61,15 @@ public class CourseManager extends AbstractManager<Course> {
                 }
                 if (Math.abs(rWord.getNextReview() - today) < 24 * 60 * 60 * 1000) {
                     todayWords.add(rWord);
-                    if (course.getCourseType().equals(LEITNER_COURSE))
+                    if (course.getCourseType() == LEITNER_COURSE)
                         rWord.setNextReview((int) (Math.pow(2, rWord.getStage())) * 24 * 60 * 60 * 1000);
-                    else if (course.getCourseType().equals(CUSTOM_COURSE))
+                    else if (course.getCourseType() == CUSTOM_COURSE)
                         rWord.setNextReview((rWord.getStage() + 1) * 24 * 60 * 60 * 1000);
                     rWord.setStage(rWord.getStage() + 1);
                 }
 
             }
-            if (course.getCourseType().equals(CUSTOM_COURSE)) {
+            if (course.getCourseType() == CUSTOM_COURSE) {
                 for (int i = 0; i < course.getNeedMoreReview().size(); i++) {
                     if (numWords++ > MAX_WORD_EACH_TIME) {
                         return todayWords;
@@ -82,9 +82,9 @@ public class CourseManager extends AbstractManager<Course> {
     }
 
     public void setWordWrongAnswer(ReviewableWord word, Course course) {
-        if (course.getCourseType().equals(LEITNER_COURSE)) {
+        if (course.getCourseType() == LEITNER_COURSE) {
             word.setStage(0);
-        } else if (course.getCourseType().equals(CUSTOM_COURSE)) {
+        } else if (course.getCourseType() == CUSTOM_COURSE) {
             course.getNeedMoreReview().add(word);
         }
 

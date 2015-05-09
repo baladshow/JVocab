@@ -15,7 +15,7 @@ public class Course extends RealmObject{
 
     private int numNewWordPerDay;
 
-    private String CourseType;
+    private int CourseType;
 
     private RealmList<ReviewableWord> reviewableWords;
 
@@ -82,11 +82,11 @@ public class Course extends RealmObject{
         this.needMoreReview = needMoreReview;
     }
 
-    public String getCourseType() {
+    public int getCourseType() {
         return CourseType;
     }
 
-    public void setCourseType(String courseType) {
+    public void setCourseType(int courseType) {
         CourseType = courseType;
     }
 }
