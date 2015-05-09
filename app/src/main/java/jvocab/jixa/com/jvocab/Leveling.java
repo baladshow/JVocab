@@ -12,10 +12,15 @@ import jvocab.jixa.com.jvocab.Model.Word;
 public class Leveling {
     DatabaseManager dbm;
     Leveling LVLInstance;
+    public static int NUM_WORD_PER_STAGE;
     // True Factor
     int[] TF;
     // False Factor
     int[] FF;
+
+    private Leveling(){
+        NUM_WORD_PER_STAGE = 5;
+    }
 
     public Leveling getInstance() {
         if (null == LVLInstance)
@@ -30,7 +35,7 @@ public class Leveling {
         int sum = 0;
         dbm = DatabaseManager.getInstance();
         for (int i = 0; i < 10000; i += interval) {
-            for (int j = 0; j < 5; j++) {
+            for (int j = 0; j < NUM_WORD_PER_STAGE; j++) {
                 int rnd = i + (int) (Math.random() * ((interval) + 1));
                 words.add(dbm.getWordById(context, rnd));
                 TF[t] = rnd;
@@ -39,16 +44,16 @@ public class Leveling {
             }
             interval -= 500;
         }
-        for (int i = 0; i < 25; i++) {
+        for (int i = 0; i < NUM_WORD_PER_STAGE * 5; i++) {
             TF[i] = TF[i] * (10000 / sum);
-            FF[i] = (int) (FF[i] * (10000 / (25 * 10000 - sum)) * 0.5);
+            FF[i] = (int) (FF[i] * (10000 / (NUM_WORD_PER_STAGE * 5 * 10000 - sum)) * 0.5);
         }
         return words;
     }
 
     public int calculateLevel(boolean[] answers) {
         int result = 0;
-        for (int i = 0; i <= 25; i++) {
+        for (int i = 0; i <= NUM_WORD_PER_STAGE * 5; i++) {
             if (answers[i]) {
                 result += TF[i] ;
             } else {
