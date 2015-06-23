@@ -7,11 +7,19 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.List;
+
+import de.greenrobot.event.EventBus;
 import io.realm.Realm;
 import io.realm.RealmQuery;
 import io.realm.RealmResults;
+import jvocab.jixa.com.jvocab.BusHandler.RealmBusHandler;
+import jvocab.jixa.com.jvocab.BusHandler.RealmRequest;
+import jvocab.jixa.com.jvocab.BusHandler.RealmResponse;
 import jvocab.jixa.com.jvocab.Cache.DatabaseManager;
+import jvocab.jixa.com.jvocab.Model.Collection;
 import jvocab.jixa.com.jvocab.Model.Word;
+import jvocab.jixa.com.jvocab.View.CollectionListActivity;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -35,7 +43,13 @@ public class MainActivity extends ActionBarActivity {
 //        RealmResults<Word> results = query.findAll();
 //        Log.d("DATABASEGET--MAIN", results.toString());
 //        Log.d("DATABASEGET", String.valueOf(dbm.getWordById(1).getSynonyms()));
+
     }
+
+//    public void onEvent(RealmResponse response){
+//        RealmResults<Collection> results = response.getData();
+//        Log.d("**********",results.get(0).getName());
+//    }
 
 
     @Override
@@ -43,6 +57,40 @@ public class MainActivity extends ActionBarActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+    @Override
+    public void onStart() {
+        super.onStart();
+//        EventBus.getDefault().register(this);
+        RealmBusHandler bh = RealmBusHandler.createInstance();
+        Realm.deleteRealmFile(getApplicationContext());
+        Realm realm = Realm.getInstance(this);
+        realm.beginTransaction();
+        Collection c1 = realm.createObject(Collection.class);
+        c1.setId(1);
+        Collection c2 = realm.createObject(Collection.class);
+        c2.setId(2);
+        c2.setName("second collection");
+//        Collection c3 = realm.createObject(Collection.class);
+
+        c1.setName("first collection");
+
+//        c2.setName("second collection");
+//        c3.setId(2);
+//        c3.setName("third collection");
+        realm.commitTransaction();
+//        RealmRequest request = new RealmRequest(RealmRequest.COLLECTION_WORD_REQUEST,13,getApplicationContext());
+//        EventBus.getDefault().post(request);
+//        Word word = new Word();
+//        word.setText("Testing Event bus");
+//        EventBus.getDefault().post(word);
+        startActivity(new Intent(getApplicationContext(), CollectionListActivity.class));
+    }
+
+    @Override
+    public void onStop() {
+//        EventBus.getDefault().unregister(this);
+        super.onStop();
     }
 
     @Override

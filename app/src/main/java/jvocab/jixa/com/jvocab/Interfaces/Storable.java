@@ -1,4 +1,4 @@
-package jvocab.jixa.com.jvocab.Model.Interfaces;
+package jvocab.jixa.com.jvocab.Interfaces;
 
 import java.util.List;
 

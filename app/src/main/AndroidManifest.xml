@@ -17,6 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".View.SplashScreenActivity" ></activity>
+        <activity android:name=".View.CollectionListActivity" ></activity>
     </application>
 
 </manifest>

@@ -63,7 +63,7 @@ public class DatabaseManager {
     }
 
     public Course createCourse(Context context, List<Word> wordList,
-                               String courseType, String name, int numNewWordPerDay,
+                               int courseType, String name, int numNewWordPerDay,
                                int numStageRequired
     ) {
         Realm realm = Realm.getInstance(context);

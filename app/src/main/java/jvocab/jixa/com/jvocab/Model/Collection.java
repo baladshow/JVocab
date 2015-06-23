@@ -12,8 +12,6 @@ public class Collection extends RealmObject{
 
     private String name;
 
-    private int extra;
-
     private RealmList<Word> words;
 
     public Collection(){}
@@ -32,14 +30,6 @@ public class Collection extends RealmObject{
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public int getExtra() {
-        return extra;
-    }
-
-    public void setExtra(int extra) {
-        this.extra = extra;
     }
 
     public RealmList<Word> getWords() {

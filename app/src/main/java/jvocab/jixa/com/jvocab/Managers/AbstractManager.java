@@ -4,8 +4,8 @@ package jvocab.jixa.com.jvocab.Managers;
 
 import java.util.List;
 
-import jvocab.jixa.com.jvocab.Model.Interfaces.IManager;
-import jvocab.jixa.com.jvocab.Model.Interfaces.Storable;
+import jvocab.jixa.com.jvocab.Interfaces.IManager;
+import jvocab.jixa.com.jvocab.Interfaces.Storable;
 
 public abstract class AbstractManager<T> implements IManager<T>, Storable<T> {
 

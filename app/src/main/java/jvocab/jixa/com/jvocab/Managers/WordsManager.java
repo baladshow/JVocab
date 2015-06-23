@@ -3,7 +3,7 @@ package jvocab.jixa.com.jvocab.Managers;
 
 import java.util.List;
 
-import jvocab.jixa.com.jvocab.Model.Interfaces.IStatistic;
+import jvocab.jixa.com.jvocab.Interfaces.IStatistic;
 import jvocab.jixa.com.jvocab.Model.Word;
 
 public class WordsManager extends  AbstractManager<Word> implements IStatistic {

@@ -31,7 +31,7 @@ public class CourseManager extends AbstractManager<Course> {
     }
 
     public Course createCourse(Context context, List<Word> wordList,
-                               String courseType, String name, int numNewWordPerDay,
+                               int courseType, String name, int numNewWordPerDay,
                                int numStageRequired
     ) {
         return dbm.createCourse(context,wordList,courseType,name,numNewWordPerDay,numStageRequired);
