@@ -3,22 +3,13 @@ package jvocab.jixa.com.jvocab;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import java.util.List;
-
-import de.greenrobot.event.EventBus;
 import io.realm.Realm;
-import io.realm.RealmQuery;
-import io.realm.RealmResults;
-import jvocab.jixa.com.jvocab.BusHandler.RealmBusHandler;
-import jvocab.jixa.com.jvocab.BusHandler.RealmRequest;
-import jvocab.jixa.com.jvocab.BusHandler.RealmResponse;
+import jvocab.jixa.com.jvocab.BusHandler.Realm.RealmBusHandler;
 import jvocab.jixa.com.jvocab.Cache.DatabaseManager;
 import jvocab.jixa.com.jvocab.Model.Collection;
-import jvocab.jixa.com.jvocab.Model.Word;
 import jvocab.jixa.com.jvocab.View.CollectionListActivity;
 
 
@@ -66,6 +57,13 @@ public class MainActivity extends ActionBarActivity {
         Realm.deleteRealmFile(getApplicationContext());
         Realm realm = Realm.getInstance(this);
         realm.beginTransaction();
+//        Word w = realm.createObject(Word.class);
+//        w.setText("first word");
+//        RealmList<Word> wList = new RealmList<>();
+//        wList.add(w);
+//            realm.where(Collection.class)
+//                    .findFirst()
+//                    .setWords(wList);
         Collection c1 = realm.createObject(Collection.class);
         c1.setId(1);
         Collection c2 = realm.createObject(Collection.class);

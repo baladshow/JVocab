@@ -1,4 +1,4 @@
-package jvocab.jixa.com.jvocab.BusHandler;
+package jvocab.jixa.com.jvocab.BusHandler.Realm;
 
 import android.content.Context;
 

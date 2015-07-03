@@ -1,4 +1,4 @@
-package jvocab.jixa.com.jvocab.BusHandler;
+package jvocab.jixa.com.jvocab.BusHandler.Realm;
 
 import de.greenrobot.event.EventBus;
 import io.realm.RealmResults;
@@ -17,11 +17,12 @@ public class RealmBusHandler {
         return mInstance;
     }
 
-    public void onEvent(RealmRequest request){
+    public void onEvent(RealmRequest request) {
         int typeRequest = request.getRequestType();
         if(typeRequest == RealmRequest.COLLECTION_WORD_REQUEST){
             RealmResults<Collection> results = DatabaseManager.getInstance().getAllCollections(request.getContext());
-            EventBus.getDefault().post(new RealmResponse<Collection>(request.getID(),results));
+
+            EventBus.getDefault().post(new RealmCollectionResponse(request.getID(),results));
         }
     }
 
