@@ -77,7 +77,7 @@ public class MainActivity extends ActionBarActivity {
 //        c3.setId(2);
 //        c3.setName("third collection");
         realm.commitTransaction();
-//        RealmRequest request = new RealmRequest(RealmRequest.COLLECTION_WORD_REQUEST,13,getApplicationContext());
+//        RealmRequest request = new RealmRequest(RealmRequest.COLLECTION_LIST_REQUEST,13,getApplicationContext());
 //        EventBus.getDefault().post(request);
 //        Word word = new Word();
 //        word.setText("Testing Event bus");

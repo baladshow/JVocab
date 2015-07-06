@@ -19,10 +19,13 @@ public class RealmBusHandler {
 
     public void onEvent(RealmRequest request) {
         int typeRequest = request.getRequestType();
-        if(typeRequest == RealmRequest.COLLECTION_WORD_REQUEST){
+        if(typeRequest == RealmRequest.COLLECTION_LIST_REQUEST){
             RealmResults<Collection> results = DatabaseManager.getInstance().getAllCollections(request.getContext());
 
-            EventBus.getDefault().post(new RealmCollectionResponse(request.getID(),results));
+            EventBus.getDefault().post(new RealmCollectionListResponse(request.getID(),results));
+        }else if(typeRequest == RealmRequest.COLLECTION_REQUEST){
+            Collection collection = DatabaseManager.getInstance().getCollectionByID(request.getContext(), request.getParam());
+            EventBus.getDefault().post(new  RealmCollectionResponse(request.getID(),collection));
         }
     }
 

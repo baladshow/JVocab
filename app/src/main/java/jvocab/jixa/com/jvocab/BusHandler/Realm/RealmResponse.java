@@ -7,15 +7,9 @@ import jvocab.jixa.com.jvocab.Interfaces.BusResponse;
 public class RealmResponse implements BusResponse{
 
     private String id;
-    private RealmResults data;
 
-    public RealmResponse(String id,RealmResults data) {
+    public RealmResponse(String id) {
         this.id = id;
-        this.data = data;
-    }
-
-    public RealmResults getData(){
-        return data;
     }
 
     @Override
@@ -23,9 +17,5 @@ public class RealmResponse implements BusResponse{
         return this.id;
     }
 
-    public BusResponse setData(RealmResults data) {
-        this.data = data;
-        return this;
-    }
 
 }

@@ -53,7 +53,7 @@ public class CollectionListAdapter extends RealmBaseAdapter<Collection> implemen
         notifyDataSetChanged();
     }
 
-    public RealmResults<Collection> getRealmResults() {
+    public RealmResults<Collection> getData() {
         return realmResults;
     }
 }

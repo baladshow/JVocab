@@ -5,17 +5,26 @@ import android.content.Context;
 import jvocab.jixa.com.jvocab.Interfaces.BusRequest;
 
 public class RealmRequest implements BusRequest {
-    public static final int COLLECTION_WORD_REQUEST = 0;
+    public static final int COLLECTION_LIST_REQUEST = 0;
+    public static final int COLLECTION_REQUEST = 1;
     private int type;
     private String id;
+    private int param;
     private Context context;
 
 
 
-    public RealmRequest(int type, String id, Context context) {
+
+    public RealmRequest(Context context,int type, String id) {
         this.type = type;
         this.id = id;
         this.context = context;
+    }
+    public RealmRequest(Context context,int type, String id,int param) {
+        this.type = type;
+        this.id = id;
+        this.context = context;
+        this.param = param;
     }
 
     @Override
@@ -47,6 +56,15 @@ public class RealmRequest implements BusRequest {
 
     public BusRequest setContext(Context context) {
         this.context = context;
+        return this;
+    }
+
+    public int getParam() {
+        return param;
+    }
+
+    public RealmRequest setParam(int pram) {
+        this.param = pram;
         return this;
     }
 }
