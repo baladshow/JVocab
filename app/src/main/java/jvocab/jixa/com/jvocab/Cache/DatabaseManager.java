@@ -59,7 +59,12 @@ public class DatabaseManager {
 
     public Collection getCollectionByID(Context context,int id){
         Realm realm = Realm.getInstance(context);
-        return realm.where(Collection.class).equalTo("id",id).findFirst();
+        return realm.where(Collection.class).equalTo("id", id).findFirst();
+    }
+
+    public Exam getExamByID(Context context,int id){
+        Realm realm = Realm.getInstance(context);
+        return realm.where(Exam.class).equalTo("id",id).findFirst();
     }
 
     public RealmResults<Course> getAllCourses(Context context){

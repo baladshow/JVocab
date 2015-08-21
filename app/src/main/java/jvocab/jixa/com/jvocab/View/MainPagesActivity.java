@@ -8,20 +8,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import jvocab.jixa.com.jvocab.Adapters.MainPagerAdapter;
-import jvocab.jixa.com.jvocab.Adapters.SliderAdapter;
 import jvocab.jixa.com.jvocab.R;
-import jvocab.jixa.com.jvocab.View.Fragments.CollectionFragment;
 
-public class CollectionActivity extends SliderActivity{
-    private static final String TAG = "**** Collection ";
+public class MainPagesActivity extends FragmentActivity implements ViewPager.OnPageChangeListener{
+    private static final String TAG = "****MainPages ";
+    private ViewPager viewPager ;
+    private TextView title;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        int count  = getIntent().getIntExtra("collectionsCount",0);
-        int collectionId =  getIntent().getIntExtra("id",0);
-        setAdapter(new SliderAdapter<CollectionFragment>(getSupportFragmentManager(),count,CollectionFragment.class));
-        viewPager.setCurrentItem(collectionId);
-
+        setContentView(R.layout.activity_slider);
+        viewPager = (ViewPager) findViewById(R.id.activity_slider_view_pager);
+        title = (TextView) findViewById(R.id.activity_slider_title);
+        viewPager.setOnPageChangeListener(this);
+        viewPager.setAdapter(new MainPagerAdapter(getSupportFragmentManager()));
     }
 
 
@@ -31,12 +31,15 @@ public class CollectionActivity extends SliderActivity{
                 "Selected page position: " + position, Toast.LENGTH_SHORT).show();
     }
 
+    // This method will be invoked when the current page is scrolled
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 //        Toast.makeText(getApplicationContext(),
 //                "Scrolled page position: " + position, Toast.LENGTH_SHORT).show();
     }
 
+    // Called when the scroll state changes:
+    // SCROLL_STATE_IDLE, SCROLL_STATE_DRAGGING, SCROLL_STATE_SETTLING
     @Override
     public void onPageScrollStateChanged(int state) {
 //        Toast.makeText(getApplicationContext(),

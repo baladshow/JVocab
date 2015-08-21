@@ -17,7 +17,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".View.SplashScreenActivity" ></activity>
-        <activity android:name=".View.CollectionListActivity" ></activity>
+        <activity android:name=".View.SliderActivity" ></activity>
+        <activity android:name=".View.ExamActivity" ></activity>
+        <activity android:name=".View.MainPagesActivity" ></activity>
         <activity android:name=".View.CollectionActivity" ></activity>
     </application>
 

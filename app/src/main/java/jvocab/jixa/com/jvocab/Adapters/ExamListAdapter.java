@@ -13,21 +13,21 @@ import com.amulyakhare.textdrawable.TextDrawable;
 
 import io.realm.RealmBaseAdapter;
 import io.realm.RealmResults;
-import jvocab.jixa.com.jvocab.Model.Collection;
+import jvocab.jixa.com.jvocab.Model.Exam;
 import jvocab.jixa.com.jvocab.R;
 
-public class CollectionListAdapter extends RealmBaseAdapter<Collection> implements ListAdapter {
-    public static String TAG = "*****"+CollectionListAdapter.class.getName();
-    public static final int RESOURCE = R.layout.collection_list_item;
-    
+public class ExamListAdapter extends RealmBaseAdapter<Exam> implements ListAdapter {
+    public static String TAG = "*****"+ExamListAdapter.class.getName();
+    public static final int RESOURCE = R.layout.exam_list_item;
+
     private class ViewHolder {
         TextView title;
         ImageView icon;
 
 
         ViewHolder(View convertView){
-            title = (TextView) convertView.findViewById(R.id.collection_list_item_title);
-            icon = (ImageView) convertView.findViewById(R.id.collection_list_item_icon);
+            title = (TextView) convertView.findViewById(R.id.exam_list_item_title);
+            icon = (ImageView) convertView.findViewById(R.id.exam_list_item_icon);
         }
         public void setData(int position){
             TextDrawable drawable = TextDrawable.builder()
@@ -39,13 +39,12 @@ public class CollectionListAdapter extends RealmBaseAdapter<Collection> implemen
 
             icon.setImageDrawable(drawable);
             title.setText(realmResults.get(position).getName());
-
         }
     }
 
-    public CollectionListAdapter(Context context,
-                                 RealmResults<Collection> realmResults,
-                                 boolean automaticUpdate) {
+    public ExamListAdapter(Context context,
+                           RealmResults<Exam> realmResults,
+                           boolean automaticUpdate) {
         super(context, realmResults, automaticUpdate);
     }
 
@@ -65,13 +64,12 @@ public class CollectionListAdapter extends RealmBaseAdapter<Collection> implemen
         return convertView;
     }
 
-    public void setData(RealmResults<Collection> data){
+    public void setData(RealmResults<Exam> data){
         realmResults = data;
         notifyDataSetChanged();
-        Log.d(TAG, data.get(0).getName());
     }
 
-    public RealmResults<Collection> getData() {
+    public RealmResults<Exam> getData() {
         return realmResults;
     }
 }

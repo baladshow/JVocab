@@ -65,7 +65,7 @@ public class CourseManager extends AbstractManager<Course> {
                         rWord.setNextReview((int) (Math.pow(2, rWord.getStage())) * 24 * 60 * 60 * 1000);
                     else if (course.getCourseType() == CUSTOM_COURSE)
                         rWord.setNextReview((rWord.getStage() + 1) * 24 * 60 * 60 * 1000);
-                    rWord.setStage(rWord.getStage() + 1);
+//                    rWord.setStage(rWord.getStage() + 1);
                 }
 
             }

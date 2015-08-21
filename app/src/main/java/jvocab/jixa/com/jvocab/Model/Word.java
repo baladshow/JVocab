@@ -11,9 +11,13 @@ public class Word extends RealmObject {
 
     private String text;
 
+    private String definition;
+
     private RealmList<Word> synonyms;
 
     private RealmList<Word> antonyms;
+
+    private RealmList<Word> confusing;
 
     private RealmList<Sentence> sentences;
 
@@ -92,5 +96,25 @@ public class Word extends RealmObject {
 
     public void setLevel(int level) {
         this.level = level;
+    }
+
+    public String getDefinition() {
+        return definition;
+    }
+
+    public void setDefinition(String definition) {
+        this.definition = definition;
+    }
+
+    public void setIsFavorite(boolean isFavorite) {
+        this.isFavorite = isFavorite;
+    }
+
+    public RealmList<Word> getConfusing() {
+        return confusing;
+    }
+
+    public void setConfusing(RealmList<Word> confusing) {
+        this.confusing = confusing;
     }
 }

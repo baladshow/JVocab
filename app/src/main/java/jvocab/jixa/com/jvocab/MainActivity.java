@@ -3,6 +3,7 @@ package jvocab.jixa.com.jvocab;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -10,7 +11,7 @@ import io.realm.Realm;
 import jvocab.jixa.com.jvocab.BusHandler.Realm.RealmBusHandler;
 import jvocab.jixa.com.jvocab.Cache.DatabaseManager;
 import jvocab.jixa.com.jvocab.Model.Collection;
-import jvocab.jixa.com.jvocab.View.CollectionListActivity;
+import jvocab.jixa.com.jvocab.View.MainPagesActivity;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -54,35 +55,24 @@ public class MainActivity extends ActionBarActivity {
         super.onStart();
 //        EventBus.getDefault().register(this);
         RealmBusHandler bh = RealmBusHandler.createInstance();
-        Realm.deleteRealmFile(getApplicationContext());
         Realm realm = Realm.getInstance(this);
-        realm.beginTransaction();
-//        Word w = realm.createObject(Word.class);
-//        w.setText("first word");
-//        RealmList<Word> wList = new RealmList<>();
-//        wList.add(w);
-//            realm.where(Collection.class)
-//                    .findFirst()
-//                    .setWords(wList);
-        Collection c1 = realm.createObject(Collection.class);
-        c1.setId(1);
-        Collection c2 = realm.createObject(Collection.class);
-        c2.setId(2);
-        c2.setName("second collection");
-//        Collection c3 = realm.createObject(Collection.class);
-
-        c1.setName("first collection");
-
-//        c2.setName("second collection");
-//        c3.setId(2);
-//        c3.setName("third collection");
-        realm.commitTransaction();
-//        RealmRequest request = new RealmRequest(RealmRequest.COLLECTION_LIST_REQUEST,13,getApplicationContext());
 //        EventBus.getDefault().post(request);
-//        Word word = new Word();
+//        Word word = realm.where(Word.class).equalTo("id", 89).findFirst();
+//        Log.d("Test Word -->", word.getText() + " " + word.getSynonyms() + " " + word.getAntonyms() + " " + word.getSentences()
+//                + "  Conf -->" + word.getConfusing());
+//        Collection collection =realm.where(Collection.class).equalTo("id",2).findFirst();
+//        Log.d("Test Collection --> ", collection.getName() + " words " + collection.getWords().first().getText() + " last: " + collection.getWords().last().getText());
+//
+//        Exam exam = realm.where(Exam.class).equalTo("id", 1).findFirst();
+//        Log.d("Exam --> " , exam.getName() + "  "  + exam.getCollections());
+
+//        Log.d(TAG, dbr.getWord(76).getSynonyms().get(0).getText());
 //        word.setText("Testing Event bus");
 //        EventBus.getDefault().post(word);
-        startActivity(new Intent(getApplicationContext(), CollectionListActivity.class));
+
+//        startActivity(new Intent(getApplicationContext(), CollectionListFragment.class));
+
+        startActivity(new Intent(getApplicationContext(), MainPagesActivity.class));
     }
 
     @Override
