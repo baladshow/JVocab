@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:id="@+id/collection_list_layout">
+
+
+    <include layout="@layout/parallax_listview_header" />
+    <view
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        class="com.poliveira.apps.parallaxlistview.ParallaxGridView"
+        android:id="@+id/parallax_listview_list"
+    />
+</RelativeLayout>

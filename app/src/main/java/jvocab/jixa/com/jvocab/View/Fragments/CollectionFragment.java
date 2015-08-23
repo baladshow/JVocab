@@ -7,6 +7,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.poliveira.apps.parallaxlistview.ParallaxListView;
 
 import de.greenrobot.event.EventBus;
 import jvocab.jixa.com.jvocab.Adapters.ExamListAdapter;
@@ -16,6 +19,7 @@ import jvocab.jixa.com.jvocab.BusHandler.Realm.RealmExamListResponse;
 import jvocab.jixa.com.jvocab.BusHandler.Realm.RealmRequest;
 import jvocab.jixa.com.jvocab.Interfaces.BusResponseReciver;
 import jvocab.jixa.com.jvocab.Model.Collection;
+import jvocab.jixa.com.jvocab.R;
 
 
 public class CollectionFragment extends SliderPageFragment implements BusResponseReciver {
@@ -24,6 +28,8 @@ public class CollectionFragment extends SliderPageFragment implements BusRespons
     private int id;
     private Collection collection;
     private SliderAdapter adapter;
+    private ParallaxListView mListView;
+    private TextView mTitle;
 
     public CollectionFragment(){
         Log.d(TAG," in costructor");
@@ -44,8 +50,10 @@ public class CollectionFragment extends SliderPageFragment implements BusRespons
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-//        Log.d(TAG, "987on createed view");
-        return super.onCreateView(inflater, container, savedInstanceState);
+        View view = inflater.inflate(R.layout.fragment_collection,container,false);
+        mListView = (ParallaxListView) view.findViewById(R.id.parallax_listview_list);
+        mTitle = (TextView) view.findViewById(R.id.parallax_listview_header_title);
+        return view;
     }
 
     @Override
@@ -71,14 +79,16 @@ public class CollectionFragment extends SliderPageFragment implements BusRespons
 //                adapter = new SliderAdapter(getActivity().getSupportFragmentManager(),)
 //                listView.setAdapter(adapter);
 //                listView.setOnItemClickListener(this);
+
             }
             else{
 //                adapter.setData(collection);
             }
 
-//            progressBar.setVisibility(View.GONE);
+//            progress_bar.setVisibility(View.GONE);
         }
     }
+
 
 
     @Override

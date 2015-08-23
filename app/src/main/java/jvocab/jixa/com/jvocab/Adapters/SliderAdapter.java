@@ -28,7 +28,7 @@ public class SliderAdapter<T extends SliderPageFragment> extends FragmentPagerAd
         try {
             T fragment = c.newInstance();
             Bundle args = new Bundle();
-            args.putInt("id",position);
+            args.putInt("id",position+1);
             fragment.setArguments(args);
             return fragment;
         } catch (InstantiationException e) {
