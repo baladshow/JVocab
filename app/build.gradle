@@ -24,7 +24,8 @@ dependencies {
     compile 'com.android.support:appcompat-v7:21.0.3'
     compile 'de.greenrobot:eventbus:2.4.0'
     compile 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
-    compile 'com.github.kanytu:android-parallax-listview:v1.1'
+//    compile 'com.github.kanytu:android-parallax-listview:v1.1'
+    compile 'com.github.nirhart:parallaxscroll:1.0'
 
 //    compile 'io.realm:realm-android:0.80.0'
 }

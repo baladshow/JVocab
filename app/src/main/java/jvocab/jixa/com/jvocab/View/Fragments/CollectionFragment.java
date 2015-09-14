@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.poliveira.apps.parallaxlistview.ParallaxListView;
+//import com.poliveira.apps.parallaxlistview.ParallaxListView;
 
 import de.greenrobot.event.EventBus;
 import jvocab.jixa.com.jvocab.Adapters.ExamListAdapter;
@@ -28,7 +28,7 @@ public class CollectionFragment extends SliderPageFragment implements BusRespons
     private int id;
     private Collection collection;
     private SliderAdapter adapter;
-    private ParallaxListView mListView;
+//    private ParallaxListView mListView;
     private TextView mTitle;
 
     public CollectionFragment(){
@@ -51,8 +51,8 @@ public class CollectionFragment extends SliderPageFragment implements BusRespons
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_collection,container,false);
-        mListView = (ParallaxListView) view.findViewById(R.id.parallax_listview_list);
-        mTitle = (TextView) view.findViewById(R.id.parallax_listview_header_title);
+//        mListView = (ParallaxListView) view.findViewById(R.id.parallax_listview_list);
+//        mTitle = (TextView) view.findViewById(R.id.parallax_listview_header_title);
         return view;
     }
 
