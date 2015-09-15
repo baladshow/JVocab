@@ -4,7 +4,7 @@
     >
 
     <TextView
-        android:id="@+id/collection_list_item_title"
+        android:id="@+id/word_list_item_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="یک متن داریم"
@@ -12,14 +12,6 @@
         android:textSize="20sp"
         android:textColor="@color/background_material_dark"
 
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="توضیحات"
-        android:layout_alignBottom="@id/collection_list_item_icon"
-        android:textSize="12sp"
-        android:textColor="@color/material_blue_grey_950"
         />
 
 </RelativeLayout>
