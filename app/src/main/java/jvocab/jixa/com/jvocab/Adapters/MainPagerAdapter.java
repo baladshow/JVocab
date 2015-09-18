@@ -35,9 +35,12 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        if(position == 0){
+        if(position == 0) {
+            Log.d(TAG, "position =0");
             return CollectionListFragment.newInstance();
-        }else if(position == 1){
+        }
+         if(position == 1){
+            Log.d(TAG, "position =1");
             return ExamListFragment.newInstance();
         }
         return null;

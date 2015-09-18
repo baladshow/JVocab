@@ -1,9 +1,11 @@
 package jvocab.jixa.com.jvocab.View;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,10 +20,14 @@ public class MainPagesActivity extends FragmentActivity implements ViewPager.OnP
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_slider);
+        Intent intent = getIntent();
+        int currentPageId = intent.getIntExtra("pageId", 0);
+        Log.d(TAG, "current page id : " + currentPageId);
         viewPager = (ViewPager) findViewById(R.id.activity_slider_view_pager);
         title = (TextView) findViewById(R.id.activity_slider_title);
         viewPager.setOnPageChangeListener(this);
         viewPager.setAdapter(new MainPagerAdapter(getSupportFragmentManager()));
+        viewPager.setCurrentItem(currentPageId);
     }
 
 

@@ -39,27 +39,30 @@ public class ExamListFragment extends Fragment implements BusResponseReciver, IM
         super.onCreate(savedInstanceState);
 
 //        setContentView(R.layout.fragment_exam_list);
-
+        Log.d(TAG, "onCreate ExamListFragment");
         EventBus.getDefault().register(this);
-        RealmRequest request = new RealmRequest(getActivity().getApplicationContext(),RealmRequest.COLLECTION_LIST_REQUEST,getBusID());
-        EventBus.getDefault().post(request);
+
 
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 //        return super.onCreateView(inflater, container, savedInstanceState);
+        Log.d(TAG, "onCreateView ExamListFragment");
         View view = inflater.inflate(R.layout.fragment_exam_list,container,false);
         listView = (ListView) view.findViewById(R.id.exam_list_view);
         progressBar = (ProgressBar) view.findViewById(R.id.exam_list_progress);
+        RealmRequest request = new RealmRequest(getActivity().getApplicationContext(),RealmRequest.EXAM_LIST_REQUEST,getBusID());
+        EventBus.getDefault().post(request);
         return view;
 
     }
 
     public void onEvent(RealmExamListResponse response){
+        Log.d(TAG, "onEvent ExamListFragment");
         if(getBusID().equals(response.getResponseID())) {
             exams = response.getData();
-
+//            Log.d(TAG, "onEvent ---> ExamListFragment exam : " + exams);
 //            Log.d(TAG, courses.get(0).getName());
 //            Log.d(TAG, courses.get(0).getWords().get(0).getText());
             if(null == adapter){
