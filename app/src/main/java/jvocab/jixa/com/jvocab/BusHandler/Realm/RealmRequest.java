@@ -11,6 +11,8 @@ public class RealmRequest implements BusRequest {
     public static final int COURSE_REQUEST = 3;
     public static final int EXAM_REQUEST = 4;
     public static final int EXAM_LIST_REQUEST = 5;
+    public static final int WORD_REQUEST = 6;
+    public static final int WORD_LIST_REQUEST = 7;
     private int type;
     private String id;
     private int param;

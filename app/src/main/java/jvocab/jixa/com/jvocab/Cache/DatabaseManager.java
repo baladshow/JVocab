@@ -1,6 +1,7 @@
 package jvocab.jixa.com.jvocab.Cache;
 
 import android.content.Context;
+import android.util.Log;
 
 
 import io.realm.Realm;
@@ -60,6 +61,12 @@ public class DatabaseManager {
     public Collection getCollectionByID(Context context,int id){
         Realm realm = Realm.getInstance(context);
         return realm.where(Collection.class).equalTo("id", id).findFirst();
+    }
+
+    public RealmResults<Word> getCollectionWords(Context context,int id){
+        Realm realm = Realm.getInstance(context);
+        Log.d("DAtabase manager"," : " + id);
+        return realm.where(Collection.class).equalTo("id", id).findFirst().getWords().where().findAll();
     }
 
     public Exam getExamByID(Context context,int id){

@@ -7,6 +7,7 @@ import io.realm.RealmResults;
 import jvocab.jixa.com.jvocab.Cache.DatabaseManager;
 import jvocab.jixa.com.jvocab.Model.Collection;
 import jvocab.jixa.com.jvocab.Model.Exam;
+import jvocab.jixa.com.jvocab.Model.Word;
 
 public class RealmBusHandler {
     private static final String TAG = "***RealmBusHandler";
@@ -39,6 +40,14 @@ public class RealmBusHandler {
             RealmResults<Exam> exams = DatabaseManager.getInstance().getAllExams(request.getContext());
             Log.d(TAG, "exam list request realm bus handler exams : " + exams);
             EventBus.getDefault().post(new  RealmExamListResponse(request.getID(),exams));
+        }else if(typeRequest == RealmRequest.WORD_LIST_REQUEST){
+            Log.d(TAG, "word list request realm bus handler");
+            RealmResults<Word> words = DatabaseManager.getInstance().getCollectionWords(request.getContext(), request.getParam());
+            Log.d(TAG, "wordlist request realm bus handler words : " + words);
+            EventBus.getDefault().post(new  RealmWordListResponse(request.getID(),words));
+        }else if(typeRequest == RealmRequest.WORD_REQUEST){
+            Word word = DatabaseManager.getInstance().getWordById(request.getContext(), request.getParam());
+            EventBus.getDefault().post(new  RealmWordResponse(request.getID(),word));
         }
 
     }

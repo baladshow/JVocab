@@ -1,6 +1,7 @@
 package jvocab.jixa.com.jvocab.View.Fragments;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -8,6 +9,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -30,12 +32,14 @@ import jvocab.jixa.com.jvocab.Interfaces.BusResponseReciver;
 import jvocab.jixa.com.jvocab.Model.Collection;
 import jvocab.jixa.com.jvocab.Model.Word;
 import jvocab.jixa.com.jvocab.R;
+import jvocab.jixa.com.jvocab.View.MainPagesActivity;
+import jvocab.jixa.com.jvocab.View.WordActivity;
 
 
-public class CollectionFragment extends SliderPageFragment implements BusResponseReciver {
+public class CollectionFragment extends SliderPageFragment implements BusResponseReciver,AdapterView.OnItemClickListener {
 
     private static final String TAG = "****Collection Fragment";
-    private int id;
+//    private int id;
     private Collection collection;
     private WordListAdapter adapter;
     private ParallaxListView mListView;
@@ -61,6 +65,7 @@ public class CollectionFragment extends SliderPageFragment implements BusRespons
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_collection,container,false);
         mListView = (ParallaxListView) view.findViewById(R.id.collection_words_list);
+
         mTitle = new TextView(getActivity().getApplicationContext());
         mTitle.setGravity(Gravity.CENTER);
         mTitle.setTextSize(40);
@@ -75,11 +80,11 @@ public class CollectionFragment extends SliderPageFragment implements BusRespons
     @Override
     public void init(){
 //        Log.d(TAG, "init :" + id);
-        this.id = getArguments().getInt("id");
+        int id = getArguments().getInt("id");
         EventBus bus = EventBus.getDefault();
 //        Log.d(TAG,"get activity : " + mActivity);
         RealmRequest request = new RealmRequest(getActivity().getApplicationContext(),RealmRequest.COLLECTION_REQUEST,getBusID());
-        request.setParam(this.id);
+        request.setParam(id);
         bus.post(request);
     }
 
@@ -96,7 +101,7 @@ public class CollectionFragment extends SliderPageFragment implements BusRespons
                 adapter = new WordListAdapter(getActivity().getApplicationContext(),words, true);
                 mTitle.setText(collectionName);
                 mListView.setAdapter(adapter);
-//                mListView.setOnItemClickListener(this);
+                mListView.setOnItemClickListener(this);
 
             }
             else{
@@ -115,5 +120,13 @@ public class CollectionFragment extends SliderPageFragment implements BusRespons
     }
 
 
-
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent intent = new Intent(getActivity().getApplicationContext(), WordActivity.class);
+        intent.putExtra("selectedWordPos", position);
+        intent.putExtra("collectionId", collection.getId());
+        Log.d(TAG, Integer.toString(position));
+        Log.d(TAG, collection.getName());
+        startActivity(intent);
+    }
 }

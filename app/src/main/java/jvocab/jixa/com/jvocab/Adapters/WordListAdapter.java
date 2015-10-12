@@ -16,9 +16,7 @@ import jvocab.jixa.com.jvocab.Model.Exam;
 import jvocab.jixa.com.jvocab.Model.Word;
 import jvocab.jixa.com.jvocab.R;
 
-/**
- * Created by root on 9/15/15.
- */
+
 public class WordListAdapter extends RealmBaseAdapter<Word> {
     public static String TAG = "*****"+ExamListAdapter.class.getName();
     public static final int RESOURCE = R.layout.word_list_item;

@@ -13,10 +13,6 @@ import jvocab.jixa.com.jvocab.Adapters.MainMenuAdapter;
 import jvocab.jixa.com.jvocab.BusHandler.Realm.RealmBusHandler;
 import jvocab.jixa.com.jvocab.R;
 
-
-/**
- * Created by mohammad on 4/9/15.
- */
 public class MainMenuActivity extends Activity  implements AdapterView.OnItemClickListener{
 
     ListView listView;
