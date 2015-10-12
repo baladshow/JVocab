@@ -44,14 +44,14 @@ public class CollectionFragment extends SliderPageFragment implements BusRespons
     private WordListAdapter adapter;
     private ParallaxListView mListView;
     private TextView mTitle;
+    private int collectionId;
 
-    public CollectionFragment(){
-        Log.d(TAG," in costructor");
-    }
-
-    @Override
-    public void setArguments(Bundle args) {
-        super.setArguments(args);
+    public static CollectionFragment getInstance(int id){
+        CollectionFragment instance = new CollectionFragment();
+        Bundle args = new Bundle();
+        args.putInt("collectionId",id);
+        instance.setArguments(args);
+        return instance;
     }
 
     @Override
@@ -63,6 +63,7 @@ public class CollectionFragment extends SliderPageFragment implements BusRespons
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.d(TAG, "onCreateView");
         View view = inflater.inflate(R.layout.fragment_collection,container,false);
         mListView = (ParallaxListView) view.findViewById(R.id.collection_words_list);
 
@@ -72,6 +73,7 @@ public class CollectionFragment extends SliderPageFragment implements BusRespons
         mTitle.setHeight(400);
 //                mTitle.setBackgroundResource(R.drawable.item_background);
         mListView.addParallaxedHeaderView(mTitle);
+        mListView.setOnItemClickListener(this);
 //        mTitle. = (TextView) view.findViewById(R.id.parallax_listview_header_title);
         init();
         return view;
@@ -80,11 +82,11 @@ public class CollectionFragment extends SliderPageFragment implements BusRespons
     @Override
     public void init(){
 //        Log.d(TAG, "init :" + id);
-        int id = getArguments().getInt("id");
+        collectionId = getArguments().getInt("collectionId");
         EventBus bus = EventBus.getDefault();
 //        Log.d(TAG,"get activity : " + mActivity);
         RealmRequest request = new RealmRequest(getActivity().getApplicationContext(),RealmRequest.COLLECTION_REQUEST,getBusID());
-        request.setParam(id);
+        request.setParam(collectionId);
         bus.post(request);
     }
 
@@ -92,7 +94,8 @@ public class CollectionFragment extends SliderPageFragment implements BusRespons
         if(getBusID().equals(response.getResponseID())) {
             collection = response.getData();
             String collectionName = collection.getName();
-            RealmResults<Word> words =collection.getWords().where().findAll();;
+            Log.d(TAG, "on event collection name: ---> " + collectionName);
+            RealmResults<Word> words =collection.getWords().where().findAll();
 //            Log.d(TAG, words.);
             Log.d(TAG, collectionName);
 //            Log.d(TAG, courses.get(0).getWords().get(0).getText());
@@ -101,7 +104,6 @@ public class CollectionFragment extends SliderPageFragment implements BusRespons
                 adapter = new WordListAdapter(getActivity().getApplicationContext(),words, true);
                 mTitle.setText(collectionName);
                 mListView.setAdapter(adapter);
-                mListView.setOnItemClickListener(this);
 
             }
             else{
@@ -116,7 +118,7 @@ public class CollectionFragment extends SliderPageFragment implements BusRespons
 
     @Override
     public String getBusID() {
-        return "BUS_ID_" + this.getClass().getName();
+        return "BUS_ID_" + this.getClass().getName() + collectionId;
     }
 
 

@@ -49,6 +49,7 @@ public class    CollectionListFragment extends Fragment implements BusResponseRe
         Log.d(TAG, "on create view()");
         View view = inflater.inflate(R.layout.fragment_collection_list,container,false);
         listView = (ListView) view.findViewById(R.id.collection_list_view);
+        listView.setOnItemClickListener(this);
         progressBar = (ProgressBar) view.findViewById(R.id.collection_list_progress);
         return view;
 
@@ -64,6 +65,7 @@ public class    CollectionListFragment extends Fragment implements BusResponseRe
 
     public void onEvent(RealmCollectionListResponse response){
         Log.d(TAG, "on event()");
+        Log.d(TAG, response.getResponseID());
         if(getBusID().equals(response.getResponseID())) {
             collections = response.getData();
 
@@ -72,7 +74,6 @@ public class    CollectionListFragment extends Fragment implements BusResponseRe
             if(null == adapter){
                 adapter = new CollectionListAdapter(getActivity().getApplicationContext(),collections,true);
                 listView.setAdapter(adapter);
-                listView.setOnItemClickListener(this);
             }
             else{
                 adapter.setData(collections);
@@ -92,7 +93,7 @@ public class    CollectionListFragment extends Fragment implements BusResponseRe
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Log.d(TAG,"clicked");
         Intent intent = new Intent(getActivity().getApplicationContext(),CollectionActivity.class);
-        intent.putExtra("id",adapter.getData().get(position).getId());
+        intent.putExtra("selectedCollectionPos", position);
         intent.putExtra("collectionsCount",collections.size());
 //        intent.put
         Log.d(TAG, "in item click count :" + collections.size());

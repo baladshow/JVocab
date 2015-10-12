@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nirhart.parallaxscroll.views.ParallaxListView;
 
@@ -72,6 +73,7 @@ public class WordFragment extends Fragment implements BusResponseReciver {
 //            RealmResults<Word> words =collection.getWords().where().findAll();;
             Log.d(TAG, word.getText());
             Log.d(TAG," "  + word.getId());
+            Toast.makeText(getActivity().getApplicationContext(), word.getText(), Toast.LENGTH_LONG).show();
 //            Log.d(TAG, collectionName);
 //            Log.d(TAG, courses.get(0).getWords().get(0).getText());
 
