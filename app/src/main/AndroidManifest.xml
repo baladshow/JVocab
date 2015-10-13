@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="jvocab.jixa.com.jvocab" >
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".View.MainMenuActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".View.SplashScreenActivity" ></activity>
+        <activity android:name=".View.SliderActivity" ></activity>
+        <activity android:name=".View.ExamActivity" ></activity>
+        <activity android:name=".View.MainPagesActivity" ></activity>
+        <activity android:name=".View.CollectionActivity" ></activity>
+        <activity android:name=".View.WordActivity" ></activity>
+    </application>
+
+</manifest>
