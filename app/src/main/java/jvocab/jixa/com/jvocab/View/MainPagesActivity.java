@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +28,7 @@ public class MainPagesActivity extends FragmentActivity implements ViewPager.OnP
         title = (TextView) findViewById(R.id.activity_slider_title);
         viewPager.setOnPageChangeListener(this);
         viewPager.setAdapter(new MainPagerAdapter(getSupportFragmentManager()));
+        viewPager.setPageTransformer(false, new FadePageTransformer());
         viewPager.setCurrentItem(currentPageId);
     }
 
@@ -52,7 +54,24 @@ public class MainPagesActivity extends FragmentActivity implements ViewPager.OnP
 //                "Changed page position: " , Toast.LENGTH_SHORT).show();
     }
 
+
+
  }
+
+class FadePageTransformer implements ViewPager.PageTransformer {
+    public void transformPage(View view, float position) {
+        view.setTranslationX(view.getWidth() * -position);
+
+        if(position <= -1.0F || position >= 1.0F) {
+            view.setAlpha(0.0F);
+        } else if( position == 0.0F ) {
+            view.setAlpha(1.0F);
+        } else {
+            // position is between -1.0F & 0.0F OR 0.0F & 1.0F
+            view.setAlpha(1.0F - Math.abs(position));
+        }
+    }
+}
 
 
 
